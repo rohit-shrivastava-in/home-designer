@@ -17,6 +17,12 @@ export default function Home() {
   return (
     <main className="flex h-screen">
       <aside className="w-72 bg-gray-100">
+        <Sidebar
+          color={colors.wall1}
+          onColorSelect={(color) =>
+            setColors((c) => ({ ...c, wall1: color || c.wall1 }))
+          }
+        />
       </aside>
       <div className="flex-1">
         <Scene colors={colors} />

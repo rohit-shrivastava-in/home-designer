@@ -30,13 +30,34 @@ export default function Room({
         return c;
       };
 
+      // helper: create a standard material from a hex color string, convert color
+      // from sRGB to linear space so it reacts correctly to tone mapping without
+      // relying on renderer.outputEncoding (which can be problematic on some builds).
+      const mat = (hex: string, opts: { roughness?: number; metalness?: number } = {}) => {
+        const color = new THREE.Color(norm(hex));
+        // convert color from sRGB -> linear to match renderer tone mapping
+        color.convertSRGBToLinear();
+        return new THREE.MeshStandardMaterial({
+          color,
+          side: THREE.BackSide,
+          roughness: opts.roughness ?? 0.7,
+          metalness: opts.metalness ?? 0.0,
+        });
+      };
+
       return [
-        new THREE.MeshStandardMaterial({ color: new THREE.Color(norm(colors.wall1)), side: THREE.BackSide }), // right
-        new THREE.MeshStandardMaterial({ color: new THREE.Color(norm(colors.wall2)), side: THREE.BackSide }), // left
-        new THREE.MeshStandardMaterial({ color: new THREE.Color(norm(colors.ceiling)), side: THREE.BackSide }), // top
-        new THREE.MeshStandardMaterial({ color: new THREE.Color(norm(colors.floor)), side: THREE.BackSide }), // bottom
-        new THREE.MeshStandardMaterial({ color: new THREE.Color(norm(colors.wall3)), side: THREE.BackSide }), // front
-        new THREE.MeshStandardMaterial({ color: new THREE.Color(norm(colors.wall4)), side: THREE.BackSide }), // back
+        // right wall: slightly matte
+        mat(colors.wall1, { roughness: 0.7 }),
+        // left wall
+        mat(colors.wall2, { roughness: 0.7 }),
+        // ceiling: a bit brighter and matte
+        mat(colors.ceiling, { roughness: 0.85 }),
+        // floor: slightly less rough to catch subtle reflections
+        mat(colors.floor, { roughness: 0.45 }),
+        // front wall
+        mat(colors.wall3, { roughness: 0.7 }),
+        // back wall
+        mat(colors.wall4, { roughness: 0.7 }),
       ];
     },
     [colors]

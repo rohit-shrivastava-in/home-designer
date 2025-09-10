@@ -1,19 +1,20 @@
 "use client";
 import library from "@/config/library";
-import { useState } from "react";
 
-export default function Sidebar({ onColorSelect, color }: { onColorSelect: (c: string) => void, color: string }) {
-  // const [selectedColor, setSelectedColor] = useState<string | null>(null);
+type ColorItem = { id: string; hex: string; name: string; thumbnail?: string };
+type Library = Record<string, ColorItem[]>;
+
+export default function Sidebar({ onColorSelect, color }: { onColorSelect: (c: string) => void; color: string; }) {
 
   return (
     <div className="p-3">
       <h2 className="text-lg font-bold mb-2">Library</h2>
 
-      {Object.entries(library).map(([category, items]) => (
+      {Object.entries(library as unknown as Library).map(([category, items]) => (
         <div key={category} className="mb-4">
           <h3 className="font-semibold capitalize">{category}</h3>
           <div className="grid grid-cols-2 gap-2 mt-2">
-            {(items as any[]).map((item) => {
+            {items.map((item) => {
               if (category === "colors") {
                 return (
                   <div
