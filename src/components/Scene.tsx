@@ -47,9 +47,10 @@ export default function Scene({ colors }: { colors: any }) {
         target={[0, 1.2, 0]}
         enableDamping
         dampingFactor={0.06}
-        minDistance={0.6}
-        maxDistance={4}
-        maxPolarAngle={Math.PI / 2 - 0.1}
+        minDistance={0.3}
+        maxDistance={6}
+        minPolarAngle={0.01} // allow looking nearly straight up
+        maxPolarAngle={Math.PI - 0.01} // allow looking nearly straight down so ceiling is visible
       />
     </Canvas>
   );
