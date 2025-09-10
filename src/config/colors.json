@@ -1,0 +1,14 @@
+[
+  {
+    "id": "c1",
+    "brand": "AsianPaints",
+    "code": "AP-4030",
+    "hex": "#F5F5F5"
+  },
+  {
+    "id": "c2",
+    "brand": "AsianPaints",
+    "code": "AP-5020",
+    "hex": "#C0C0C0"
+  }
+]
