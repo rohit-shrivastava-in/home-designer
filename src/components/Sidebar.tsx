@@ -1,5 +1,6 @@
 "use client";
 import library from "@/config/library";
+import Image from 'next/image';
 
 type ColorItem = { id: string; hex: string; name: string; thumbnail?: string };
 type Library = Record<string, ColorItem[]>;
@@ -37,11 +38,17 @@ export default function Sidebar({ onColorSelect, color }: { onColorSelect: (c: s
                   key={item.id}
                   className="border rounded p-1 text-center cursor-pointer hover:bg-gray-100"
                 >
-                  <img
-                    src={item.thumbnail}
-                    alt={item.name}
-                    className="w-full h-20 object-cover rounded"
-                  />
+                  {item.thumbnail ? (
+                    <Image
+                      src={item.thumbnail}
+                      alt={item.name}
+                      width={160}
+                      height={80}
+                      className="w-full h-20 object-cover rounded"
+                    />
+                  ) : (
+                    <div className="w-full h-20 bg-gray-200 rounded" />
+                  )}
                   <p className="text-xs mt-1">{item.name}</p>
                 </div>
               );
