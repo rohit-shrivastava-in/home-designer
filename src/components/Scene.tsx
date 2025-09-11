@@ -3,7 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
-import type { StaticImageData } from 'next/image';
+// ...existing code...
 import Room from "./Room";
 
 type Colors = {
@@ -64,7 +64,7 @@ export default function Scene({ colors, wallpapers, dimensions }: {
       <ContactShadows position={[0, -1.49, 0]} opacity={0.5} scale={8} blur={2} far={1.6} />
 
       {/* convert StaticImageData to string path when needed inside Room; it can accept either */}
-      <Room colors={colors} wallpapers={wallpapers as any} dimensions={dimensions} />
+      <Room colors={colors} wallpapers={wallpapers} dimensions={dimensions} />
 
       {/* Controls tuned for interior viewing */}
       <OrbitControls

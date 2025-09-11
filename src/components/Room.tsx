@@ -3,8 +3,8 @@
 import * as THREE from "three";
 import { useMemo } from "react";
 import { useLoader } from "@react-three/fiber";
-import library from "@/config/library";
 
+type WallpaperObj = { url: string; size: { width: number; height: number } };
 export default function Room({
   colors,
   wallpapers,
@@ -19,12 +19,12 @@ export default function Room({
     wall4: string;
   };
   wallpapers?: Partial<{
-    floor: string;
-    ceiling: string;
-    wall1: string;
-    wall2: string;
-    wall3: string;
-    wall4: string;
+    floor: WallpaperObj;
+    ceiling: WallpaperObj;
+    wall1: WallpaperObj;
+    wall2: WallpaperObj;
+    wall3: WallpaperObj;
+    wall4: WallpaperObj;
   }>;
   dimensions?: { width: number; height: number; depth: number };
 }) {
@@ -99,8 +99,8 @@ export default function Room({
       ];
 
       vals.forEach((v, i) => {
-        const wp = wallpapers && (wallpapers as any)[v.key];
-        const matOpts: any = { roughness: v.roughness };
+        const wp = wallpapers && (wallpapers as Partial<Record<string, { url: string; size: { width: number; height: number } }>>)[v.key];
+        const matOpts: { roughness: number; metalness?: number } = { roughness: v.roughness };
         if (typeof v.metalness === 'number') matOpts.metalness = v.metalness;
         if (wp) {
           const tx = textures[i];
@@ -108,7 +108,7 @@ export default function Room({
           tx.wrapT = THREE.RepeatWrapping;
           // Ensure sRGB encoding for accurate color (robust for all three.js builds)
           // 3001 is the value for sRGBEncoding in three.js
-          (tx as any).encoding = 3001;
+          (tx as unknown as { encoding: number }).encoding = 3001;
           // Use size from props
           const size = sizes[i];
           const { width: wallW, height: wallH } = faceDims[i];
@@ -127,7 +127,7 @@ export default function Room({
 
       return mats;
     },
-    [colors, textures, wallpapers, width, height, depth]
+    [colors, textures, wallpapers, width, height, depth, sizes]
   );
 
   return (
