@@ -4,25 +4,29 @@ const library = {
     { id: "c2", name: "Blue", hex: "#0077ff" },
     { id: "c3", name: "Gray", hex: "#888888" }
   ],
-  doors: [
-    {
-      id: "d1",
-      name: "Wooden Door",
-      thumbnail: "https://openclipart.org/image/200px/221565"
-    },
-    {
-      id: "d2",
-      name: "Glass Door",
-      thumbnail: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Door_example.png"
-    }
-  ],
-  windows: [
+  wallpapers: [
     {
       id: "w1",
-      name: "Square Window",
-      thumbnail: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Window_example.png"
+      name: "Red brick",
+      thumbnail: "/wallpapers/red-brick.png",
+      size: { width: 3, height: 3 }, // in feet
+    },
+  ],
+  floors: [
+    {
+      id: "f1",
+      name: "Wooden Floor",
+      thumbnail: "/floors/wooden-floor.jpg",
+      size: { width: 2, height: 2 }
+    },
+    {
+      id: "f2",
+      name: "Marble Floor",
+      thumbnail: "/floors/marble-floor.jpg",
+      size: { width: 4, height: 4 }
+
     }
-  ]
+  ],
 };
 
 export default library;

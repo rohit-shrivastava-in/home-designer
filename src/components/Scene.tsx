@@ -3,6 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
+import type { StaticImageData } from 'next/image';
 import Room from "./Room";
 
 type Colors = {
@@ -14,7 +15,11 @@ type Colors = {
   wall4: string;
 };
 
-export default function Scene({ colors }: { colors: Colors }) {
+export default function Scene({ colors, wallpapers, dimensions }: {
+  colors: Colors;
+  wallpapers?: Partial<{ floor: { url: string; size: { width: number; height: number } }; ceiling: { url: string; size: { width: number; height: number } }; wall1: { url: string; size: { width: number; height: number } }; wall2: { url: string; size: { width: number; height: number } }; wall3: { url: string; size: { width: number; height: number } }; wall4: { url: string; size: { width: number; height: number } } }>;
+  dimensions?: { width: number; height: number; depth: number };
+}) {
   return (
     // Place camera inside the room, slightly offset so you can see walls and floor
     <Canvas
@@ -32,9 +37,9 @@ export default function Scene({ colors }: { colors: Colors }) {
       {/* Main warm directional light (like sunlight through a window) */}
       <directionalLight
         castShadow
-        color={0xfff3e0}
+        color={0xffffff} // pure white for true color
         position={[4, 6, 2]}
-        intensity={1.0}
+        intensity={1.5} // brighter main light
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
         shadow-camera-left={-5}
@@ -45,20 +50,21 @@ export default function Scene({ colors }: { colors: Colors }) {
       />
 
       {/* Soft ambient and sky fill */}
-      <hemisphereLight color={0xffffff} groundColor={0x887766} intensity={0.45} />
-      <ambientLight color={0xffffff} intensity={0.12} />
+      <hemisphereLight color={0xffffff} groundColor={0x888888} intensity={0.18} />
+      <ambientLight color={0xffffff} intensity={0.06} />
 
       {/* Rim / fill light for gentle highlights on walls and floor */}
-      <pointLight color={0xfff8e8} position={[-2, 2, -1]} intensity={0.35} />
-      <pointLight color={0xe8f0ff} position={[2, 1.8, -2]} intensity={0.15} />
+      <pointLight color={0xffffff} position={[-2, 2, -1]} intensity={1} />
+      <pointLight color={0xffffff} position={[2, 1.8, -2]} intensity={1} />
 
       {/* add an HDRI-like environment so materials have realistic reflections and diffuse lighting */}
-      <Environment preset="sunset" background={false} blur={0.6} />
+      <Environment preset="lobby" background={false} blur={0.6} />
 
       {/* subtle contact shadow under objects/room for anchoring */}
       <ContactShadows position={[0, -1.49, 0]} opacity={0.5} scale={8} blur={2} far={1.6} />
 
-      <Room colors={colors} />
+      {/* convert StaticImageData to string path when needed inside Room; it can accept either */}
+      <Room colors={colors} wallpapers={wallpapers as any} dimensions={dimensions} />
 
       {/* Controls tuned for interior viewing */}
       <OrbitControls
@@ -66,7 +72,7 @@ export default function Scene({ colors }: { colors: Colors }) {
         enableDamping
         dampingFactor={0.06}
         minDistance={0.3}
-        maxDistance={6}
+        maxDistance={20} // allow zooming out much further
         minPolarAngle={0.01} // allow looking nearly straight up
         maxPolarAngle={Math.PI - 0.01} // allow looking nearly straight down so ceiling is visible
       />
