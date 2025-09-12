@@ -77,11 +77,12 @@ export default function Room({
       };
 
       // Wall face dimensions (width, height) for each face in boxGeometry order
+      // For the floor, use width (x) and depth (z) as the repeat axes
       const faceDims = [
         { width: depth, height },   // wall1: -z (back)
         { width: depth, height },   // wall2: +z (front)
         { width, height: depth },   // ceiling: +y (top)
-        { width, height: depth },   // floor: -y (bottom)
+        { width, height: depth },   // floor: -y (bottom) (will override below)
         { width, height },          // wall3: -x (left)
         { width, height },          // wall4: +x (right)
       ];
@@ -111,11 +112,17 @@ export default function Room({
           (tx as unknown as { encoding: number }).encoding = 3001;
           // Use size from props
           const size = sizes[i];
-          const { width: wallW, height: wallH } = faceDims[i];
+          // For the floor, use width and depth for repeat calculation
+          let wallW = faceDims[i].width;
+          let wallH = faceDims[i].height;
+          if (v.key === "floor") {
+            wallW = width;
+            wallH = depth;
+          }
           let repeatX = 1, repeatY = 1;
           if (size) {
-            repeatX = Math.max(1, Math.round(wallW / size.width));
-            repeatY = Math.max(1, Math.round(wallH / size.height));
+            repeatX = wallW / size.width;
+            repeatY = wallH / size.height;
           }
           tx.repeat.set(repeatX, repeatY);
           // Use MeshBasicMaterial for true, unlit color, and disable tone mapping
