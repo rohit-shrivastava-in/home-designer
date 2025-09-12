@@ -1,16 +1,10 @@
 const library = {
   colors: [
-    { id: "c1", name: "White", hex: "#ffffff" },
-    { id: "c2", name: "Blue", hex: "#0077ff" },
-    { id: "c3", name: "Gray", hex: "#888888" }
+    { id: "c1", name: "White", hex: "#4fa473ff" },
+    { id: "c2", name: "Blue", hex: "#869c3fff" },
+    { id: "c3", name: "Gray", hex: "#994477ff" }
   ],
   wallpapers: [
-    {
-      id: "w1",
-      name: "Red brick",
-      thumbnail: "/wallpapers/wall-paper-1.jpg",
-      size: { width: 2, height: 2 }, // in feet
-    },
     {
       id: "w2",
       name: "Red brick",
@@ -38,12 +32,6 @@ const library = {
   ],
   floors: [
     {
-      id: "f1",
-      name: "Wooden Floor",
-      thumbnail: "/floors/wooden-floor-1.jpg",
-      size: { width: 2, height: 2 }
-    },
-    {
       id: "f2",
       name: "Wooden Floor",
       thumbnail: "/floors/wooden-floor-2.jpg",
@@ -67,18 +55,6 @@ const library = {
       thumbnail: "/floors/tile-2.webp",
       size: { width: 1, height: 1 }
     },
-    {
-      id: "f6",
-      name: "Marble Floor",
-      thumbnail: "/floors/tile-3.webp",
-      size: { width: 1, height: 1 }
-    },
-    {
-      id: "f7",
-      name: "Marble Floor",
-      thumbnail: "/floors/tile-4.webp",
-      size: { width: 1, height: 1 }
-    }
   ],
 };
 

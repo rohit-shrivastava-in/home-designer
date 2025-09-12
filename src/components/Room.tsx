@@ -64,15 +64,12 @@ export default function Room({
         return c;
       };
 
-      const mat = (hex: string, opts: { roughness?: number; metalness?: number } = {}) => {
-        let color = new THREE.Color(norm(hex));
-        // Always convert sRGB to linear for correct display
-        if (color.isColor) color = color.convertSRGBToLinear();
-        return new THREE.MeshStandardMaterial({
-          color,
+      const mat = (hex: string) => {
+        // Use MeshBasicMaterial for true, unlit color (WYSIWYG)
+        return new THREE.MeshBasicMaterial({
+          color: norm(hex),
           side: THREE.BackSide,
-          roughness: opts.roughness ?? 0.7,
-          metalness: opts.metalness ?? 0.0,
+          toneMapped: false,
         });
       };
 
@@ -107,12 +104,9 @@ export default function Room({
           const tx = textures[i];
           tx.wrapS = THREE.RepeatWrapping;
           tx.wrapT = THREE.RepeatWrapping;
-          // Ensure sRGB encoding for accurate color (robust for all three.js builds)
-          // 3001 is the value for sRGBEncoding in three.js
           (tx as unknown as { encoding: number }).encoding = 3001;
-          // Use size from props
+          // Use size from props for repeat, do not round or clamp
           const size = sizes[i];
-          // For the floor, use width and depth for repeat calculation
           let wallW = faceDims[i].width;
           let wallH = faceDims[i].height;
           if (v.key === "floor") {
@@ -125,10 +119,9 @@ export default function Room({
             repeatY = wallH / size.height;
           }
           tx.repeat.set(repeatX, repeatY);
-          // Use MeshBasicMaterial for true, unlit color, and disable tone mapping
           mats.push(new THREE.MeshBasicMaterial({ map: tx, side: THREE.BackSide, toneMapped: false }));
         } else {
-          mats.push(mat(v.color, matOpts));
+          mats.push(mat(v.color));
         }
       });
 
