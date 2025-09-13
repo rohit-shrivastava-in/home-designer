@@ -67,9 +67,23 @@ const library = {
   models: [
     {
       id: "m1",
-      name: "Chair",
+      name: "Avocado",
       url: "/models/Avocado.glb",
       thumbnail: "/models/Avocado.jpg",
+      height: 1
+    },
+    {
+      id: "m2",
+      name: "Duck",
+      url: "/models/duck.glb",
+      thumbnail: "/models/duck.jpg",
+      height: 1
+    },
+    {
+      id: "m3",
+      name: "Bottle",
+      url: "/models/water-bottle.glb",
+      thumbnail: "/models/water-bottle.jpg",
       height: 1
     }
   ]

@@ -16,30 +16,7 @@ export default function Sidebar({ onColorSelect, onWallpaperSelect, onFloorSelec
 }) {
 
   return (
-    <div className="p-3 overflow-y-auto h-full">
-      {/* Models Section */}
-      {library.models && (
-        <div className="mt-4">
-          <h3 className="font-semibold mb-1">Models</h3>
-          <div className="grid grid-cols-2 gap-2">
-            {library.models.map((m) => (
-              <div key={m.id} className="flex flex-col items-center">
-                <div
-                  className="w-full h-20 rounded overflow-hidden border-2 cursor-move bg-white flex flex-col items-center justify-center"
-                  draggable
-                  onDragStart={e => {
-                    e.dataTransfer.setData("application/json", JSON.stringify(m));
-                  }}
-                  title={m.name}
-                >
-                  <Image src={m.thumbnail} alt={m.name} width={80} height={64} className="object-contain w-full h-16" />
-                  <span className="text-xs text-gray-700 mt-1">{m.name}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+    <div className="p-3 overflow-y-scroll h-full min-h-0">
       <h2 className="text-lg font-bold mb-2">Library</h2>
       {
         library.colors && (
@@ -113,6 +90,29 @@ export default function Sidebar({ onColorSelect, onWallpaperSelect, onFloorSelec
           </div>
         )
       }
+
+      {library.models && (
+        <div className="mt-4">
+          <h3 className="font-semibold mb-1">Models</h3>
+          <div className="grid grid-cols-3 gap-2">
+            {library.models.map((m) => (
+              <div key={m.id} className="flex flex-col items-center">
+                <div
+                  className="w-full h-20 rounded overflow-hidden border-2 cursor-move bg-white flex flex-col items-center justify-center"
+                  draggable
+                  onDragStart={e => {
+                    e.dataTransfer.setData("application/json", JSON.stringify(m));
+                  }}
+                  title={m.name}
+                >
+                  <Image src={m.thumbnail} alt={m.name} width={80} height={64} className="object-contain w-full h-16" />
+                </div>
+                <span className="text-xs text-gray-700 mt-1">{m.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
