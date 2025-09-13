@@ -1,32 +1,23 @@
-// Example: you can make these stateful for UI controls
 "use client";
 
 import { useState } from "react";
 import Scene from "@/components/Scene";
 import Sidebar from "@/components/Sidebar";
+import { PlacedModel } from "@/types/models";
 
+
+import { RoomDimensions, RoomWallColors, RoomWallpaper } from "@/types/room";
+import { defaultRoomColors, defaultRoomDimensions } from "@/utils/room";
 export default function Home() {
+  const [placedModels, setPlacedModels] = useState<PlacedModel[]>([]);
   // Room dimensions: width, height, depth (in feet)
-  const [dimensions, setDimensions] = useState({ width: 10, height: 8, depth: 15 });
-  const [colors, setColors] = useState({
-    floor: "#888888",
-    ceiling: "#ffffff",
-    wall1: "#97bcabff",
-    wall2: "#b8a0d7ff",
-    wall3: "#ceccf0ff",
-    wall4: "#dceca7ff",
-  });
-  type WallpaperObj = { url: string; size: { width: number; height: number } };
-  const [wallpapers, setWallpapers] = useState<Partial<{ wall1: WallpaperObj; wall2: WallpaperObj; wall3: WallpaperObj; wall4: WallpaperObj; ceiling: WallpaperObj; floor: WallpaperObj }>>({});
-
-  // const wallpaperSrc = typeof wallpaperImg === "string" ? wallpaperImg : (wallpaperImg as any).src;
-  // const [wallpapers, setWallpapers] = useState<Partial<{ wall1: string; wall2: string; wall3: string; wall4: string; ceiling: string; floor: string }>>({
-  //   wall3: wallpaperSrc,
-  // });
+  const [dimensions, setDimensions] = useState<RoomDimensions>(defaultRoomDimensions);
+  const [colors, setColors] = useState<RoomWallColors>(defaultRoomColors);
+  const [wallpapers, setWallpapers] = useState<RoomWallpaper>({});
 
   return (
     <main className="flex h-screen w-full">
-      <aside className={`transition-all duration-200 overflow-hidden bg-gray-100 w-72 pointer-events-auto'}`}>
+      <aside className={`transition-all duration-200 overflow-hidden bg-gray-100 w-72 pointer-events-auto`}>
         <div className="w-72">
           <Sidebar
             onColorSelect={(color) =>
@@ -43,7 +34,24 @@ export default function Home() {
       </aside>
 
       <div className="flex-1">
-        <Scene colors={colors} wallpapers={wallpapers} dimensions={dimensions} />
+        <Scene
+          colors={colors}
+          wallpapers={wallpapers}
+          dimensions={dimensions}
+          placedModels={placedModels}
+          onModelDrop={(model, position) => {
+            // Ensure each instance has a unique id and a default height if not present
+            setPlacedModels((prev) => [
+              ...prev,
+              {
+                ...model,
+                position,
+                height: model.height || 1, // fallback height if not set
+                instanceId: `${model.id}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+              },
+            ]);
+          }}
+        />
       </div>
     </main>
   );

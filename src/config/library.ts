@@ -1,8 +1,14 @@
 const library = {
   colors: [
-    { id: "c1", name: "White", hex: "#4fa473ff" },
-    { id: "c2", name: "Blue", hex: "#869c3fff" },
-    { id: "c3", name: "Gray", hex: "#994477ff" }
+    { id: "c1", name: "Green-Plant", hex: "#4fa473ff" },
+    { id: "c2", name: "Green-Leaf", hex: "#869c3fff" },
+    { id: "c3", name: "Gray-Stone", hex: "#994477ff" },
+    { id: "c4", name: "Brown-Earth", hex: "#7b5b3a" },
+    { id: "c5", name: "Red-Brick", hex: "#b03a2e" },
+    { id: "c6", name: "Beige-Wall", hex: "#c2afafff" },
+    { id: "c7", name: "Blue-Sky", hex: "#297fe2ff" },
+    { id: "c8", name: "Gray-Stone", hex: "#888888" }
+
   ],
   wallpapers: [
     {
@@ -56,6 +62,17 @@ const library = {
       size: { width: 1, height: 1 }
     },
   ],
+
+  // Add a new models category with sample GLTF/GLB objects
+  models: [
+    {
+      id: "m1",
+      name: "Chair",
+      url: "/models/Avocado.glb",
+      thumbnail: "/models/Avocado.jpg",
+      height: 1
+    }
+  ]
 };
 
 export default library;
