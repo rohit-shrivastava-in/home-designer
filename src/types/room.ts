@@ -31,4 +31,7 @@ export type RoomProps = {
   wallpapers?: RoomWallpaper;
   dimensions: RoomDimensions;
   placedModels: PlacedModel[];
+  selectedModelId: string | null;
+  setSelectedModelId: (id: string | null) => void;
+  setPlacedModels: React.Dispatch<React.SetStateAction<PlacedModel[]>>;
 };

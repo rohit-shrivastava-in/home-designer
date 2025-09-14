@@ -14,6 +14,7 @@ export default function Home() {
   const [colors, setColors] = useState<RoomWallColors>(defaultRoomColors);
   const [wallpapers, setWallpapers] = useState<RoomWallpaper>({});
   const [placedModels, setPlacedModels] = useState<PlacedModel[]>([]);
+  const [selectedModelId, setSelectedModelId] = useState<string | null>(null);
 
   return (
     <main className="flex h-screen w-full">
@@ -39,14 +40,16 @@ export default function Home() {
           wallpapers={wallpapers}
           dimensions={dimensions}
           placedModels={placedModels}
+          selectedModelId={selectedModelId}
+          setSelectedModelId={setSelectedModelId}
+          setPlacedModels={setPlacedModels}
           onModelDrop={(model, position) => {
-            // Ensure each instance has a unique id and a default height if not present
+            // Ensure each instance has a unique id
             setPlacedModels((prev) => [
               ...prev,
               {
                 ...model,
                 position,
-                height: model.height || 1, // fallback height if not set
                 instanceId: `${model.id}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
               },
             ]);

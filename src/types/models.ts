@@ -1,9 +1,14 @@
+export type ModelSize = {
+  width: number;
+  height: number;
+};
+
 export type PlacedModel = {
   id: string;
   name: string;
   url: string;
   thumbnail: string;
-  height: number;
+  size?: ModelSize;
   position: [number, number, number];
   instanceId: string;
 };
@@ -13,5 +18,5 @@ export type Model = {
   name: string;
   url: string;
   thumbnail: string;
-  height: number;
+  size?: ModelSize;
 }

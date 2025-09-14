@@ -5,13 +5,21 @@ import { useMemo } from "react";
 import { useLoader } from "@react-three/fiber";
 import { RoomProps } from "@/types/room";
 import { Models } from "./model/Models";
+import { PlacedModel } from "@/types/models";
+import React from "react";
 
-export default function Room({
-  colors,
-  wallpapers,
-  dimensions = { width: 6, height: 3, depth: 6 },
-  placedModels = [],
-}: RoomProps) {
+
+
+export default function Room(props: RoomProps) {
+  const {
+    colors,
+    wallpapers,
+    dimensions = { width: 6, height: 3, depth: 6 },
+    placedModels = [],
+    selectedModelId,
+    setSelectedModelId,
+    setPlacedModels,
+  } = props;
   console.log('models in Room:', placedModels);
   const { width, height, depth } = dimensions;
 
@@ -117,10 +125,22 @@ export default function Room({
 
   return (
     <>
-      <mesh material={materials}>
+      <mesh
+        material={materials}
+        onPointerMissed={(e) => {
+          // Only clear selection if left click
+          if (e.button === 0) setSelectedModelId(null);
+        }}
+      >
         <boxGeometry args={[width, height, depth]} />
       </mesh>
-      <Models placedModels={placedModels} />
+      <Models
+        placedModels={placedModels}
+        selectedModelId={selectedModelId}
+        setSelectedModelId={setSelectedModelId}
+        setPlacedModels={setPlacedModels}
+        roomDimensions={{ width, height, depth }}
+      />
     </>
   );
 }

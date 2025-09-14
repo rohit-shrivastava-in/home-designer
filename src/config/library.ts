@@ -65,26 +65,40 @@ const library = {
 
   // Add a new models category with sample GLTF/GLB objects
   models: [
+    // {
+    //   id: "m1",
+    //   name: "Avocado",
+    //   url: "/models/Avocado.glb",
+    //   thumbnail: "/models/Avocado.jpg",
+    //   height: 1
+    // },
+    // {
+    //   id: "m2",
+    //   name: "Duck",
+    //   url: "/models/duck.glb",
+    //   thumbnail: "/models/duck.jpg",
+    //   height: 1
+    // },
+    // {
+    //   id: "m3",
+    //   name: "Bottle",
+    //   url: "/models/water-bottle.glb",
+    //   thumbnail: "/models/water-bottle.jpg",
+    //   height: 1
+    // },
     {
-      id: "m1",
-      name: "Avocado",
-      url: "/models/Avocado.glb",
-      thumbnail: "/models/Avocado.jpg",
-      height: 1
+      id: "m4",
+      name: "Sofa",
+      url: "/models/sofa.glb",
+      thumbnail: "/models/sofa.jpg",
+      size: { width: 6 }
     },
     {
-      id: "m2",
-      name: "Duck",
-      url: "/models/duck.glb",
-      thumbnail: "/models/duck.jpg",
-      height: 1
-    },
-    {
-      id: "m3",
-      name: "Bottle",
-      url: "/models/water-bottle.glb",
-      thumbnail: "/models/water-bottle.jpg",
-      height: 1
+      id: "m5",
+      name: "Sofa-2",
+      url: "/models/sofa-2.glb",
+      thumbnail: "/models/sofa-2.jpg",
+      size: { width: 6 }
     }
   ]
 };
