@@ -3,16 +3,11 @@ import React, { Fragment } from "react";
 import library from "@/config/library";
 import Image from 'next/image';
 
-type ColorItem = { id: string; hex: string; name: string; thumbnail?: string };
-type Library = Record<string, ColorItem[]>;
-
 type WallpaperObj = { url: string; size: { width: number; height: number } };
-type ModelObj = { id: string; name: string; url: string; thumbnail: string };
-export default function Sidebar({ onColorSelect, onWallpaperSelect, onFloorSelect, onModelSelect }: {
+export default function Sidebar({ onColorSelect, onWallpaperSelect, onFloorSelect }: {
   onColorSelect: (c: string) => void;
   onWallpaperSelect: (w: WallpaperObj) => void;
   onFloorSelect: (f: WallpaperObj) => void;
-  onModelSelect?: (m: ModelObj) => void;
 }) {
 
   return (

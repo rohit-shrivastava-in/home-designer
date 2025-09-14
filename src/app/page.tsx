@@ -5,15 +5,15 @@ import Scene from "@/components/Scene";
 import Sidebar from "@/components/Sidebar";
 import { PlacedModel } from "@/types/models";
 
-
 import { RoomDimensions, RoomWallColors, RoomWallpaper } from "@/types/room";
 import { defaultRoomColors, defaultRoomDimensions } from "@/utils/room";
+
 export default function Home() {
-  const [placedModels, setPlacedModels] = useState<PlacedModel[]>([]);
   // Room dimensions: width, height, depth (in feet)
-  const [dimensions, setDimensions] = useState<RoomDimensions>(defaultRoomDimensions);
+  const [dimensions] = useState<RoomDimensions>(defaultRoomDimensions);
   const [colors, setColors] = useState<RoomWallColors>(defaultRoomColors);
   const [wallpapers, setWallpapers] = useState<RoomWallpaper>({});
+  const [placedModels, setPlacedModels] = useState<PlacedModel[]>([]);
 
   return (
     <main className="flex h-screen w-full">
