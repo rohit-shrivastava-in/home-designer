@@ -53,6 +53,10 @@ export default function Scene({ colors, wallpapers, dimensions, placedModels, on
         }}
         camera={{ position: [1.2, 1.2, 1.2], fov: 60 }}
         style={{ width: '100%', height: '100%' }}
+        onPointerMissed={(e) => {
+          // Only clear selection if left click
+          if (e.button === 0) setSelectedModelId(null);
+        }}
       >
         {/* Main directional light to cast strong shadows */}
         <directionalLight

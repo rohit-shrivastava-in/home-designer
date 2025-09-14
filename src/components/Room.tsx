@@ -125,13 +125,7 @@ export default function Room(props: RoomProps) {
 
   return (
     <>
-      <mesh
-        material={materials}
-        onPointerMissed={(e) => {
-          // Only clear selection if left click
-          if (e.button === 0) setSelectedModelId(null);
-        }}
-      >
+      <mesh material={materials}>
         <boxGeometry args={[width, height, depth]} />
       </mesh>
       <Models
