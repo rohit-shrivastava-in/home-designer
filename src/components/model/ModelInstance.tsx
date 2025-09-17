@@ -6,11 +6,14 @@ import { PlacedModel } from "@/types/models";
 import { useGLTF } from "@react-three/drei";
 
 
+import { ThreeEvent } from "@react-three/fiber";
 type ModelInstanceProps = Pick<PlacedModel, "url" | "position" | "size"> & {
-  onClick?: (e: any) => void;
+  onClick?: (e: ThreeEvent<MouseEvent>) => void;
 };
 
-export const ModelInstance = forwardRef<any, ModelInstanceProps>(
+import { Group } from "three";
+
+export const ModelInstance = forwardRef<Group, ModelInstanceProps>(
   ({ url, position, size, onClick }, ref) => {
     const { scene } = useGLTF(url);
     // Always clone the scene for bounding box calculation and rendering

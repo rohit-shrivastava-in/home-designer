@@ -1,7 +1,8 @@
 import { PlacedModel } from "@/types/models";
 import { ModelInstance } from "./ModelInstance";
 import { TransformControls } from "@react-three/drei";
-import React, { useRef } from "react";
+import React, { useRef, RefObject } from "react";
+import * as THREE from "three";
 
 type ModelsProps = {
   placedModels: PlacedModel[];
@@ -13,11 +14,11 @@ type ModelsProps = {
 
 export const Models = ({ placedModels, selectedModelId, setSelectedModelId, setPlacedModels, roomDimensions }: ModelsProps) => {
   // Create a ref for each model instanceId
-  const refs = useRef<{ [key: string]: any }>({});
+  const refs = useRef<{ [key: string]: RefObject<THREE.Group | null> }>({});
   // Ensure refs exist for all placedModels
   placedModels.forEach((model: PlacedModel) => {
     if (!refs.current[model.instanceId]) {
-      refs.current[model.instanceId] = React.createRef();
+      refs.current[model.instanceId] = React.createRef<THREE.Group>();
     }
   });
 
@@ -37,11 +38,11 @@ export const Models = ({ placedModels, selectedModelId, setSelectedModelId, setP
           <React.Fragment key={model.instanceId}>
             {isSelected ? (
               <TransformControls
-                object={ref}
+                object={ref as React.RefObject<THREE.Object3D>}
                 mode="translate"
                 onMouseUp={() => {
                   // Clamp to room bounds
-                  const [x, y, z] = ref.current.position.toArray();
+                  const [x, y, z] = ref.current!.position.toArray();
                   const minX = -roomDimensions.width / 2 + 0.2;
                   const maxX = roomDimensions.width / 2 - 0.2;
                   const minY = -roomDimensions.height / 2 + 0.2;
