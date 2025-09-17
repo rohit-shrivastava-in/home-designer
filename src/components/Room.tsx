@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import { useLoader } from "@react-three/fiber";
 import { RoomProps } from "@/types/room";
 import { Models } from "./model/Models";
-import { PlacedModel } from "@/types/models";
 import React from "react";
 
 

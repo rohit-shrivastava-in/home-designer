@@ -14,7 +14,8 @@ export const useRoom = ({ dimensions }: Pick<RoomProps, "dimensions">) => {
     const y = -((clientY - rect.top) / rect.height) * 2 + 1;
 
     // Raycast from camera through mouse
-    const camera = (window as any).threeFiberRoot?.camera;
+    type ThreeFiberRoot = { gl: THREE.WebGLRenderer; camera: THREE.Camera };
+    const camera = (window as unknown as { threeFiberRoot?: ThreeFiberRoot }).threeFiberRoot?.camera;
     if (!camera) return [0, 0, 0];
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(new THREE.Vector2(x, y), camera);

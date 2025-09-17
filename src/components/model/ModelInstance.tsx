@@ -39,3 +39,5 @@ export const ModelInstance = forwardRef<any, ModelInstanceProps>(
     return <primitive ref={ref} object={instance} position={position} scale={scale} onClick={onClick} />;
   }
 );
+
+ModelInstance.displayName = "ModelInstance";

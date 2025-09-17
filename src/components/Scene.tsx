@@ -1,8 +1,9 @@
 "use client";
 
-import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
+import type { OrbitControls as DreiOrbitControls } from "three-stdlib";
+import * as THREE from "three";
 import Room from "./Room";
 
 
@@ -22,7 +23,8 @@ import { useRoom } from "./useRoom";
 export default function Scene({ colors, wallpapers, dimensions, placedModels, onModelDrop, selectedModelId, setSelectedModelId, setPlacedModels }: SceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { getWorldPosition } = useRoom({ dimensions });
-  const orbitRef = useRef<any>(null);
+  // Use the correct OrbitControls type for the ref
+  const orbitRef = useRef<DreiOrbitControls | null>(null);
 
   return (
     <div
